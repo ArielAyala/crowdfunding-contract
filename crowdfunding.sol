@@ -17,7 +17,7 @@ contract Crowfunding {
          isFundable = true;
      }
 
-     // El modifier permite cambiar el compoprtamiento de funciones, en este caso solo queria asegurarme que solo el creador del contrato pudiera mover el goalAmount
+     // Se valida que solo el autor pueda reaalizar ciertas operaciones en el contrato
      modifier onlyOwner{
          require(msg.sender == owner, "You need to be the owner from this contract to change the goalAmount");
          _;
