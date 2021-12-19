@@ -40,6 +40,7 @@ contract Crowfunding {
      
      function changeProjectState(bool state) public onlyOwner {
          isFundable = state;
+         emit StateChanged(state); // Se emite el evento para informar que el proyecto ha cambiado de valor
      }
 
      //Aqui inicia la funcion para fondear el proyecto
@@ -58,11 +59,17 @@ contract Crowfunding {
 
          //Se actualiza el total fondeado al contrato
          totalFunded += msg.value;
+         
+         emit MountReceibed(msg.sender, msg.value); // Se emite el evento, para informar de un monto recibido
      }
      //Esta funcion nos sirve para que la persona pueda ver cuanto se necesita para alcanzar la meta, asi no tendra que estar adivinando cuanto depositar maximo
      function viewRemaining() public view returns(uint256){
          uint256 remainingFunds = goalAmount - totalFunded;
          return remainingFunds;
      }
+     
+     event MountReceibed(address sender, uint256 amount);
+
+     event StateChanged(bool state);
      
  }
